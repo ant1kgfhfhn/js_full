@@ -1,6 +1,6 @@
 # [JS full](https://ogoruslan.github.io/js_full/) &middot; 
 
-The home works of js full cource.
+Homeworks of students from the full js course.
 
 ## Installation
 
@@ -8,6 +8,6 @@ just copy
 
 ## Documentation
 
-You can find the React documentation [on the website](https://ogoruslan.github.io/js_full/).
+You can find the Site documentation [on the website](https://ogoruslan.github.io/js_full/).
 
 The documentation is divided into several sections:
