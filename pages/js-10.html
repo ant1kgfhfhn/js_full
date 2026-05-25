@@ -142,14 +142,51 @@
 
       // Fire initialization routine on DOM load safely
       window.addEventListener("DOMContentLoaded", () => {
-        createSlider("my-slider");
+        getSliderImages().then((images) => {
+          console.log("Отримані зображення:", images);
+          createSlider("my-slider");
+        });
+        
       });
+
+      /////
+      async function getSliderImages() {
+        // Використовуємо безкоштовний API CoinGecko
+        const url = `https://api.thecatapi.com/v1/images/search?limit=10`;
+
+        try {
+          const response = await fetch(url);
+           if (!response.ok) {
+            throw new Error(`Помилка мережі: ${response.status}`);
+          }
+          const sliderImages = await response.json();
+          const containerSlider = document.getElementById("slider-track");
+          containerSlider.innerHTML = "";
+
+          sliderImages.forEach((cat) => {
+            const card = document.createElement("div");
+            card.classList.add("slide");
+
+            const img = document.createElement("img");
+            img.src = cat.url;
+            img.alt = "A cute cat";
+
+            card.appendChild(img);
+            containerSlider.appendChild(card);
+          });
+        } catch (error) {
+          console.error("Error fetching data:", error);
+          containerSlider.innerHTML = "<p>Failed to load cat images.</p>";
+        }
+      }
+
+      // Виклик функції
     </script>
   </head>
   <body>
     <div class="slider-container" id="my-slider">
-      <div class="slider-track">
-        <div class="slide">
+      <div class="slider-track" id="slider-track">
+        <!-- <div class="slide">
           <img src="https://picsum.photos/200/300" alt="Slide 1" />
         </div>
         <div class="slide">
@@ -163,7 +200,7 @@
         </div>
         <div class="slide">
           <img src="https://picsum.photos/300/300" alt="Slide 5" />
-        </div>
+        </div> -->
       </div>
       <button class="nav-btn prev">◀</button>
       <button class="nav-btn next">▶</button>
